@@ -1,0 +1,65 @@
+//data from python do arduino in order to control motors via relays. 
+//Idea is to send a number, in order to identify a motor and a value, to finally move it. Unfortunately im struggling with some problems.
+
+Python!!!!!!!!!!
+
+import serial
+import time
+
+Port = "/dev/xyzxyz"
+ser = serial.Serial(Port,9600,timeout=1)
+
+time.sleep(1)
+
+counter = 0
+
+def Test(counter):
+    ser.write(b"n")
+    ser.write(str(1).encode())
+    print("number:", 1)
+
+    get = ser.readline().decode()
+    print("get:", get)    
+
+
+    ser.write(b"c")
+    ser.write(str(counter).encode())
+    print("counter:", counter)
+
+    get = ser.readline().decode()
+    print("get:", get)
+    print()
+
+
+while True:
+    Test(counter)
+    counter += 1 
+	
+Arduino!!!!!!!!!!!!!!!
+
+void setup() {
+  Serial.begin(9600);
+}
+
+int number;
+int counter;
+
+void loop() {
+  if (Serial.available() > 0) {
+    if (Serial.peek() == 'n') {
+      Serial.read();
+      number = Serial.parseInt();
+      Serial.println(number);
+
+      if (Serial.peek() == 'c') {
+        Serial.read();
+        counter = Serial.parseInt();
+        Serial.println(counter);
+      }
+
+      while (Serial.available() > 0) {
+        Serial.read();
+      }
+    }
+  }
+}
