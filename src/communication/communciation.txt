@@ -1,6 +1,25 @@
 //data from python do arduino in order to control motors via relays. 
 //Idea is to send a number, in order to identify a motor and a value, to finally move it. Unfortunately im struggling with some problems.
 
+
+// ##########################################################################
+// Adi's Idea of how to send the messages
+/// We can have some escape characters "X" and "Y" where three X's will start a message
+// and 3 Y's are used to mark the end of a message. 
+//The idea then would be to simply stipulate that the messages will be in the order of motors
+// and that an escape character will be used to separate the values for each motor
+
+// Example message: XXX 10 X 20 X 30 X YYY
+// Meaning: XXX starts the message. The following motor values are given
+// motor 1 = 10
+// motor 2 = 20
+// motor 3 = 30
+// YYY stops the message and anything after is treated as noise
+ 
+// ##########################################################################
+
+
+
 Python!!!!!!!!!!
 
 import serial
