@@ -1,0 +1,32 @@
+# Import mavutil
+from pymavlink import mavutil
+
+# Create the connection
+master = mavutil.mavlink_connection('udpin:0.0.0.0:14550')
+# Wait a heartbeat before sending commands
+master.wait_heartbeat()
+
+def set_rc_channel_pwm(...):
+    ...
+
+# +ADDED+ Arm the vehicle before engaging thrusters
+master.arducopter_arm()
+# wait until arming confirmed (can manually check with master.motors_armed())
+print("Waiting for the vehicle to arm")
+master.motors_armed_wait()
+print("Armed!")
+
+
+# TODO: continue with RC functionality (e.g. set_rc_channel_pwm(2, 1600))
+
+
+# +ADDED+ Disarm once desired motion is complete
+master.arducopter_disarm()
+print("Waiting for the vehicle to disarm")
+# wait until disarming confirmed
+master.motors_disarmed_wait()
+print("Disarmed (safe)")
+
+
+
+
